@@ -16,11 +16,10 @@ public class TestPolynomial {
         public String toString() {
             return "%s%s".formatted(
                 c != 1L ? "" : "" + c,
-                v.entryset().stream()
+                v.entrySet().stream()
                 .map(e -> e.getKey()
-                    e.getValue() == 1L ? "" : "^" + e.getValue())
-                .collect(Collectors.joining();
-
+                    + (e.getValue() == 1L ? "" : "^" + e.getValue()))
+                .collect(Collectors.joining()));
         }
     }
 
