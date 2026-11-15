@@ -2,6 +2,7 @@ package saka1029.polynomial;
 
 import org.junit.Test;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TestPolynomial {
 
@@ -14,8 +15,11 @@ public class TestPolynomial {
         }
         public String toString() {
             return "%s%s".formatted(
-                c != 0L ? "" : "" + c,
-                v.entryset());
+                c != 1L ? "" : "" + c,
+                v.entryset().stream()
+                .map(e -> e.getKey()
+                    e.getValue() == 1L ? "" : "^" + e.getValue())
+                .collect(Collectors.joining();
 
         }
     }
