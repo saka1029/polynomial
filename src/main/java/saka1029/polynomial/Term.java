@@ -1,6 +1,7 @@
 package saka1029.polynomial;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Term {
     final Map<String, Long> vars;
@@ -11,6 +12,15 @@ public class Term {
         this.coef = coef;
     }
 
-    public static Term of() {
+    public static Term of(long coef) {
+        return new Term(Map.of(), 0L);
+    }
+
+    @Override
+    public String toString() {
+        return "%+d".formatted(coef)
+            + vars.entrySet().stream()
+            .map(e -> e.getKey() + (e.getValue() == 1L ? "" : "^" + e.getValue()))
+            .collect(Collectors.joining());
     }
 }
