@@ -16,6 +16,10 @@ public class Term {
         return new Term(Map.of(), 0L);
     }
 
+    static Map<String, Long> map() {
+        return new LinkedHashMap<>();
+    }
+
     @Override
     public String toString() {
         return "%+d".formatted(coef)
