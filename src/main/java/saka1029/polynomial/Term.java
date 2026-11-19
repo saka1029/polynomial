@@ -52,8 +52,17 @@ public class Term {
         return new Term(vars, c);
     }
 
-    static Map<String, Long> map() {
-        return new LinkedHashMap<>();
+    public Term mult(String v) {
+        Map<String, Long> nvars = vars(vars);
+        nvars.merge(v, 1L, (a, b) -> a + b);
+        return new Term(nvars, coef);
+    }
+
+    public Term mult(String v, long p) {
+        checkPower(p);
+        Map<String, Long> nvars = vars(vars);
+        nvars.merge(v, p, (a, b) -> a + b);
+        return new Term(nvars, coef);
     }
 
     @Override
