@@ -13,16 +13,43 @@ public class Term {
         this.coef = coef;
     }
 
+    static Map<String, Long> vars() {
+        return new LinkedHashMap<>();
+    }
+
+    static Map<String, Long> vars(Map<String, Long> vars) {
+        return new LinkedHashMap<>(vars);
+    }
+    
+    static void checkPower(long p) {
+        if (p <= 0L)
+            throw new ArithmeticException("power must be > 0");
+    }
+
     public static Term of(long coef) {
-        return new Term(Map.of(), 0L);
+        return new Term(vars(), coef);
     }
 
     public static Term of(String v) {
-        return new Term(Map.of(v, 1L), 1L);
+        Map<String, Long> vars = vars();
+        vars.put(v, 1L);
+        return new Term(vars, 1L);
     }
 
     public static Term of(String v, long p) {
-        return new Term(Map.of(v, 1L), p);
+        checkPower(p);
+        Map<String, Long> vars = vars();
+        vars.put(v, p);
+        return new Term(vars, 1L);
+    }
+
+    public static Term of(long c, String v, long p) {
+        if (c == 0)
+            return of(c);
+        checkPower(p);
+        Map<String, Long> vars = vars();
+        vars.put(v, p);
+        return new Term(vars, c);
     }
 
     static Map<String, Long> map() {
