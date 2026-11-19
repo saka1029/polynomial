@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 public class Term {
+     public static final Term ZERO = of(0L);
     final Map<String, Long> vars;
     final long coef;
 
@@ -63,6 +64,15 @@ public class Term {
         Map<String, Long> nvars = vars(vars);
         nvars.merge(v, p, (a, b) -> a + b);
         return new Term(nvars, coef);
+    }
+
+    public Term mult(Term t) {
+        long c = coef * t.coef;
+        if (c == 0L)
+            return ZERO;
+        Map<String, Long> nvars = vars(vars);
+        Common.merge(nvars, t.vars, (a, b) -> a * b);
+        return new Term(nvars, c);
     }
 
     @Override
