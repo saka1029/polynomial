@@ -77,9 +77,6 @@ public class Term {
 
     @Override
     public String toString() {
-        return "%+d".formatted(coef)
-            + vars.entrySet().stream()
-            .map(e -> e.getKey() + (e.getValue() == 1L ? "" : "^" + e.getValue()))
-            .collect(Collectors.joining());
+        return Common.toString(vars, coef);
     }
 }
