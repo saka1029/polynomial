@@ -12,6 +12,21 @@ public class Common {
                     v == null ? e.getValue()
                               : merger.apply(v, e.getValue()));
     }
+
+    static String toString(Map<String, Long> vars, long coef) {
+        if (coef == 0L)
+            return "+0";
+        if (vars.size() == 0)
+            return "%+d".formatted(coef);
+        StringBuilder sb = new StringBuilder();
+        sb.append(coef == 1L ? "+" : "%+d".formatted(coef));
+        for (var e : vars.entrySet()) {
+            sb.append(e.getKey());
+            if (e.getValue() > 1L)
+                sb.append("^").append(e.getValue());
+        }
+        return sb.toString();
+    }
 }
 
 
