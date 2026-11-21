@@ -3,6 +3,7 @@ package saka1029.polynomial;
 import java.util.Map;
 import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 
 public class Polynomial {
     final Map<Map<String, Long>, Long> terms;
@@ -27,5 +28,12 @@ public class Polynomial {
         for (var e : ts)
             terms.merge(e.vars, e.coef, (a, b) -> a + b);
         return new Polynomial(terms);
+    }
+
+    @Override
+    public String toString() {
+        return terms.entrySet().stream()
+            .map(e -> Common.toString(e.getKey(), e.getValue()))
+            .collect(Collectors.joining());
     }
 }
