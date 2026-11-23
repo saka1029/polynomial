@@ -7,6 +7,15 @@ import org.junit.Test;
 public class TestTerm {
 
     @Test
+    public void testEquals() {
+        assertEquals(Term.ZERO, Term.of(0));
+        assertEquals(Term.ONE, Term.of(1));
+        assertEquals(Term.MINUS_ONE, Term.of(-1));
+        assertEquals(Term.of(2, "x", 3), Term.of(2, "x", 3));
+        assertEquals(Term.of(2, "x", 4), Term.of(2, "x", 3).mult("x"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals("+3", Term.of(3).toString());
         assertEquals("+x^2", Term.of("x", 2).toString());

@@ -1,10 +1,14 @@
 package saka1029.polynomial;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.LinkedHashMap;
 
 public class Term {
      public static final Term ZERO = of(0L);
+     public static final Term ONE = of(1L);
+     public static final Term MINUS_ONE = of(-1L);
+
     final Map<String, Long> vars;
     final long coef;
 
@@ -77,6 +81,18 @@ public class Term {
         Map<String, Long> nvars = vars(vars);
         Common.merge(nvars, t.vars, (a, b) -> a * b);
         return new Term(nvars, c);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Term t
+            && t.coef == coef
+            && t.vars.equals(vars);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coef, vars);
     }
 
     @Override

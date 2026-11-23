@@ -44,6 +44,17 @@ public class Polynomial {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Polynomial p
+            && p.terms.equals(terms);
+    }
+
+    @Override
+    public int hashCode() {
+        return terms.hashCode();
+    }
+
+    @Override
     public String toString() {
         return terms.entrySet().stream()
             .map(e -> Common.toString(e.getKey(), e.getValue()))
