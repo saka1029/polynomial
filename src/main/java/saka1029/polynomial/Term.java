@@ -2,7 +2,6 @@ package saka1029.polynomial;
 
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.stream.Collectors;
 
 public class Term {
      public static final Term ZERO = of(0L);
@@ -51,6 +50,11 @@ public class Term {
         Map<String, Long> vars = vars();
         vars.put(v, p);
         return new Term(vars, c);
+    }
+
+    public Term mult(long c) {
+        Map<String, Long> nvars = vars(vars);
+        return new Term(nvars, coef * c);
     }
 
     public Term mult(String v) {
