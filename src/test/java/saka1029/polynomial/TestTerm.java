@@ -15,7 +15,22 @@ public class TestTerm {
         assertEquals(Term.of(2, "x", 3), Term.of(2, "x", 3));
         assertEquals(Term.of(2, "x", 4), Term.of(2, "x", 3).mult("x"));
         assertEquals(Term.of(2, "x", 3).mult("y", 5), Term.of(2, "x", 3).mult("y", 3).mult("y", 2));
+        assertEquals(Term.of(2, "x", 3).mult("y", 6), Term.of(2, "x", 3).mult(Term.of("y", 2)).mult(Term.of("y", 3)));
+        assertEquals(Term.ZERO, Term.of(0, "x", 3));
+        assertNotEquals(Term.of(2, "x", 3), "2x^3");
+        assertNotEquals(Term.of(2, "x", 3), Term.of(1));
         assertNotEquals(Term.of(2, "x", 3), Term.of(2));
+        try {
+            Term.of(2, "x", 0);
+        } catch (ArithmeticException x) {
+            assertEquals("power must be > 0", x.getMessage());
+        }
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(Term.of(2, "x", 3).hashCode(), Term.of(2, "x", 1).mult("x", 2).hashCode());
+        assertNotEquals(Term.of(2, "x", 3).hashCode(), Term.of(1).hashCode());
     }
 
     @Test
