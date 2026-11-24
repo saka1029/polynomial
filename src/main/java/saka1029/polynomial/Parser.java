@@ -52,7 +52,6 @@ public class Parser {
 
     long parsePower() {
         if (eat('^')) {
-            get();  // skip '^'
             spaces();
             if (!isDigit(ch))
                 throw new RuntimeException("digit expected after '^'");
@@ -77,11 +76,14 @@ public class Parser {
     Term parseTerm(long sign) {
         Term term = Term.of(sign);
         term = parsePrimary(term);
-        while (true)
+        while (true) {
+            if (eat('*'))
+                /* do nothing */;
             if (isVariable(ch) || isDigit(ch))
                 term = parsePrimary(term);
             else
                 break;
+        }
         return term;
     }
 

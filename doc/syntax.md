@@ -3,7 +3,7 @@
 ## syntax
 ```
 polynomial    = [ '-' ] term { ( '+' | '-' ) term }
-term          = power { power }
+term          = power { [ '*' ] power }
 power         = primary [ '^' digits ]
 primary       = variable | digits
 variable      = Character.isLetter

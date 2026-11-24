@@ -5,6 +5,6 @@ import org.junit.Test;
 public class TestPolynomial {
 
     @Test
-    public void testCVP() {
+    public void testToString() {
     }
 }
