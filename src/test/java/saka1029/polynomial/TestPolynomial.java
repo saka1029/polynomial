@@ -27,6 +27,14 @@ public class TestPolynomial {
     public void testMult() {
         Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
         assertEquals("+x^2+2x+1", x1.mult(x1).toString());
+    }
 
+    @Test
+    public void testPow() {
+        Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
+        assertEquals("+x+1", x1.pow(1L).toString());
+        assertEquals("+x^2+2x+1", x1.pow(2L).toString());
+        assertEquals("+x^3+3x^2+3x+1", x1.pow(3L).toString());
+        assertEquals("+x^4+4x^3+6x^2+4x+1", x1.pow(4L).toString());
     }
 }

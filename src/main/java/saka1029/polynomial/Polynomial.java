@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 public class Polynomial {
+    public static final Polynomial ZERO = Polynomial.of(Term.ZERO);
+    public static final Polynomial ONE = Polynomial.of(Term.ONE);
+
     final Map<Map<String, Long>, Long> terms;
 
     Polynomial(Map<Map<String, Long>, Long> terms) {
@@ -41,6 +44,15 @@ public class Polynomial {
             }
         }
         return Polynomial.of(list);
+    }
+
+    public Polynomial pow(long p) {
+        if (p < 0L)
+            throw new ArithmeticException("power must be >= 0");
+        Polynomial result = ONE;
+        for (long i = 0; i < p; ++i)
+            result = result.mult(this);
+        return result;
     }
 
     @Override
