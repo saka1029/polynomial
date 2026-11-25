@@ -44,11 +44,11 @@ public class TestPolynomial {
 
     @Test
     public void testValue() {
-        Polynomial x1 = parse("x + 1");
+        Polynomial x1 = Parser.parse("x + 1");
         Map<String, Long> values = Map.of("x", 1L, "y", 2L);
         assertEquals(2L, x1.value(values));
         assertEquals(4L, x1.pow(2).value(values));
         assertEquals(8L, x1.pow(3).value(values));
-        assertEquals(11L, parse("3x^2 + y^3").value(values));
+        assertEquals(11L, Parser.parse("3x^2 + y^3").value(values));
     }
 }

@@ -27,10 +27,6 @@ public class Common {
         }
         return sb.toString();
     }
-
-    public static Polynomial parse(String polynomial) {
-        return new Parser(polynomial).parsePolynomial();
-    }
 }
 
 

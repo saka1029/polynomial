@@ -101,4 +101,8 @@ public class Parser {
                 break;
         return Polynomial.of(terms);
     }
+
+    public static Polynomial parse(String polynomial) {
+        return new Parser(polynomial).parsePolynomial();
+    }
 }
