@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotEquals;
 import java.util.Map;
 
 import org.junit.Test;
-import static saka1029.polynomial.Common.*;
 
 public class TestPolynomial {
 
@@ -24,6 +23,11 @@ public class TestPolynomial {
     @Test
     public void testToString() {
         assertEquals("+2x^3+y^4", Polynomial.of(Term.of(2, "x", 3), Term.of("y", 4)).toString());
+    }
+
+    @Test
+    public void testToSuperString() {
+        assertEquals("+2x³+y⁴", Polynomial.of(Term.of(2, "x", 3), Term.of("y", 4)).toSuperString());
     }
 
     @Test

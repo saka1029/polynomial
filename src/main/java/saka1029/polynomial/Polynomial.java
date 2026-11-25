@@ -80,4 +80,10 @@ public class Polynomial {
             .map(e -> Common.toString(e.getKey(), e.getValue()))
             .collect(Collectors.joining());
     }
+
+    public String toSuperString() {
+        return terms.entrySet().stream()
+            .map(e -> Common.toSuperString(e.getKey(), e.getValue()))
+            .collect(Collectors.joining());
+    }
 }
