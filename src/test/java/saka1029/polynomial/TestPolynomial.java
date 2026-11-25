@@ -32,6 +32,7 @@ public class TestPolynomial {
     @Test
     public void testPow() {
         Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
+        assertEquals("+1", x1.pow(0L).toString());
         assertEquals("+x+1", x1.pow(1L).toString());
         assertEquals("+x^2+2x+1", x1.pow(2L).toString());
         assertEquals("+x^3+3x^2+3x+1", x1.pow(3L).toString());
