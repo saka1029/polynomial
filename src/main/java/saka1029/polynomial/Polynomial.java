@@ -55,6 +55,14 @@ public class Polynomial {
         return result;
     }
 
+    public long value(Map<String, Long> values) {
+        return terms.entrySet().stream()
+            .mapToLong(e -> e.getKey().entrySet().stream()
+                .mapToLong(v -> (long)Math.pow(values.get(v.getKey()), v.getValue()))
+                .reduce(1L, (a, b) -> a * b) * e.getValue())
+            .sum();
+    }
+   
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Polynomial p

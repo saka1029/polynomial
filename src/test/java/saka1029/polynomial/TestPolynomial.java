@@ -3,6 +3,8 @@ package saka1029.polynomial;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.Map;
+
 import org.junit.Test;
 
 public class TestPolynomial {
@@ -37,5 +39,15 @@ public class TestPolynomial {
         assertEquals("+x^2+2x+1", x1.pow(2L).toString());
         assertEquals("+x^3+3x^2+3x+1", x1.pow(3L).toString());
         assertEquals("+x^4+4x^3+6x^2+4x+1", x1.pow(4L).toString());
+    }
+
+    @Test
+    public void testValue() {
+        Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
+        Map<String, Long> values = Map.of("x", 1L);
+        assertEquals(2L, x1.value(values));
+        assertEquals(4L, x1.pow(2).value(values));
+        assertEquals(8L, x1.pow(3).value(values));
+        assertEquals(16L, x1.pow(4).value(values));
     }
 }
