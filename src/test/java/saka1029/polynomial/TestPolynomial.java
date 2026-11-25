@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.util.Map;
 
 import org.junit.Test;
+import static saka1029.polynomial.Common.*;
 
 public class TestPolynomial {
 
@@ -43,11 +44,11 @@ public class TestPolynomial {
 
     @Test
     public void testValue() {
-        Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
-        Map<String, Long> values = Map.of("x", 1L);
+        Polynomial x1 = parse("x + 1");
+        Map<String, Long> values = Map.of("x", 1L, "y", 2L);
         assertEquals(2L, x1.value(values));
         assertEquals(4L, x1.pow(2).value(values));
         assertEquals(8L, x1.pow(3).value(values));
-        assertEquals(16L, x1.pow(4).value(values));
+        assertEquals(11L, parse("3x^2 + y^3").value(values));
     }
 }

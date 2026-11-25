@@ -3,12 +3,9 @@ package saka1029.polynomial;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import static saka1029.polynomial.Common.*;
 
 public class TestParser {
-
-    static Polynomial parse(String input) {
-        return new Parser(input).parsePolynomial();
-    }
 
     @Test
     public void testEquals() {
