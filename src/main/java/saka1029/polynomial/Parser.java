@@ -75,10 +75,12 @@ public class Parser {
 
     Term parseTerm(long sign) {
         Term term = Term.of(sign);
+        spaces();
         term = parsePrimary(term);
         while (true) {
             if (eat('*'))
                 /* do nothing */;
+            spaces();
             if (isVariable(ch) || isDigit(ch))
                 term = parsePrimary(term);
             else

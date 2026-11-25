@@ -81,7 +81,6 @@ public class Term {
         Map<String, Long> nvars = vars(vars);
         Common.merge(nvars, t.vars, (a, b) -> a + b);
         Term result = new Term(nvars, c);
-        System.out.printf("%s * %s = %s%n", this, t, result);
         return result;
     }
 
