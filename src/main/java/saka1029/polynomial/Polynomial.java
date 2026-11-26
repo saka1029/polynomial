@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Polynomial {
 
-    public static final Polynomial ZERO = Polynomial.of(Term.ZERO);
+    public static final Polynomial ZERO = Polynomial.of();
     public static final Polynomial ONE = Polynomial.of(Term.ONE);
 
     final Map<Map<String, Long>, Long> terms;
@@ -32,9 +32,6 @@ public class Polynomial {
             .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
                 (a, b) -> a,
                 LinkedHashMap::new));
-        // Termがひとつもなければゼロを返す。
-        if (terms.size() == 0)
-            return ZERO;
         return new Polynomial(terms);
     }
 
