@@ -2,6 +2,7 @@ package saka1029.polynomial;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.BinaryOperator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
@@ -22,16 +23,20 @@ public class Polynomial {
         return new LinkedHashMap<>();
     }
 
+    static <K> void merge(Map<K, Long> map, K key, long value, BinaryOperator<Long> merger) {
+        Long oldValue = map.get(key);
+        if (oldValue != null)
+            value = merger.apply(oldValue, value);
+        if (value == 0L)
+            map.remove(key);
+        else
+            map.put(key, value);
+    }
+
     public static Polynomial of(Term... ts) {
         Map<Map<String, Long>, Long> terms = terms();
         for (var e : ts)
-            terms.merge(e.vars, e.coef, (a, b) -> a + b);
-        // 係数がゼロのTermを除外する。
-        terms = terms.entrySet().stream()
-            .filter(e -> e.getValue() != 0L)
-            .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
-                (a, b) -> a,
-                LinkedHashMap::new));
+            merge(terms, e.vars, e.coef, (a, b) -> a + b);
         return new Polynomial(terms);
     }
 
