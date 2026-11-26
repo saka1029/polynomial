@@ -35,10 +35,16 @@ public class TestPolynomial {
     }
 
     @Test
+    public void testOf() {
+        assertEquals(p("0"), p("3x-x-2x"));
+    }
+
+    @Test
     public void testMult() {
         Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
         assertEquals("+x^2+2x+1", x1.mult(x1).toString());
         assertEquals(p("x^3-1"), p("x-1").mult(p("x^2+x+1")));
+        assertEquals(p("x^3+1"), p("x+1").mult(p("x^2-x+1")));
     }
 
     @Test
