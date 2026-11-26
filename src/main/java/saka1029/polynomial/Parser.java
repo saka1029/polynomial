@@ -90,7 +90,7 @@ public class Parser {
 
     public Polynomial parsePolynomial() {
         List<Term> terms = new ArrayList<>();
-        long sign = eat('-') ? -1L : 1L;
+        long sign = eat('-') ? -1L : eat('+') ? 1L : 1L;
         terms.add(parseTerm(sign));
         while (true)
             if (eat('+'))

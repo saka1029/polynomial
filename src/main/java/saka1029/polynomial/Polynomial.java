@@ -1,13 +1,16 @@
 package saka1029.polynomial;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.BinaryOperator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 public class Polynomial {
-    public static final Polynomial ZERO = Polynomial.of(Term.ZERO);
+
+    public static final Polynomial ZERO = Polynomial.of();
     public static final Polynomial ONE = Polynomial.of(Term.ONE);
 
     final Map<Map<String, Long>, Long> terms;
@@ -20,18 +23,25 @@ public class Polynomial {
         return new LinkedHashMap<>();
     }
 
+    static <K> void merge(Map<K, Long> map, K key, long value, BinaryOperator<Long> merger) {
+        Long oldValue = map.get(key);
+        if (oldValue != null)
+            value = merger.apply(oldValue, value);
+        if (value == 0L)
+            map.remove(key);
+        else
+            map.put(key, value);
+    }
+
     public static Polynomial of(Term... ts) {
         Map<Map<String, Long>, Long> terms = terms();
         for (var e : ts)
-            terms.merge(e.vars, e.coef, (a, b) -> a + b);
+            merge(terms, e.vars, e.coef, (a, b) -> a + b);
         return new Polynomial(terms);
     }
 
     public static Polynomial of(List<Term> ts) {
-        Map<Map<String, Long>, Long> terms = terms();
-        for (var e : ts)
-            terms.merge(e.vars, e.coef, (a, b) -> a + b);
-        return new Polynomial(terms);
+        return of(ts.toArray(Term[]::new));
     }
     
     public Polynomial mult(Polynomial right){
