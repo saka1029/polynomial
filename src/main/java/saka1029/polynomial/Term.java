@@ -100,4 +100,8 @@ public class Term {
     public String toString() {
         return Common.toString(vars, coef);
     }
+
+    public String toSuperString() {
+        return Common.toSuperString(vars, coef);
+    }
 }

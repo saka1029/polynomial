@@ -47,7 +47,8 @@ public class TestTerm {
         assertEquals("+8x^2y^3", Term.of(8, "x", 2).mult(Term.of("y", 3)).toString());
     }
 
-
-
-
+    @Test
+    public void testToSuperString() {
+        assertEquals("+8x²y³", Term.of(8, "x", 2).mult(Term.of("y", 3)).toSuperString());
+    }
 }
