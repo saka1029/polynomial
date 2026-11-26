@@ -1,12 +1,14 @@
 package saka1029.polynomial;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 public class Polynomial {
+
     public static final Polynomial ZERO = Polynomial.of(Term.ZERO);
     public static final Polynomial ONE = Polynomial.of(Term.ONE);
 
@@ -24,14 +26,20 @@ public class Polynomial {
         Map<Map<String, Long>, Long> terms = terms();
         for (var e : ts)
             terms.merge(e.vars, e.coef, (a, b) -> a + b);
+        // 係数がゼロのTermを除外する。
+        terms = terms.entrySet().stream()
+            .filter(e -> e.getValue() != 0L)
+            .collect(Collectors.toMap(Entry::getKey, Entry::getValue,
+                (a, b) -> a,
+                LinkedHashMap::new));
+        // Termがひとつもなければゼロを返す。
+        if (terms.size() == 0)
+            return ZERO;
         return new Polynomial(terms);
     }
 
     public static Polynomial of(List<Term> ts) {
-        Map<Map<String, Long>, Long> terms = terms();
-        for (var e : ts)
-            terms.merge(e.vars, e.coef, (a, b) -> a + b);
-        return new Polynomial(terms);
+        return of(ts.toArray(Term[]::new));
     }
     
     public Polynomial mult(Polynomial right){
