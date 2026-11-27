@@ -77,6 +77,7 @@ public class TestSimplePolynomial {
     @Test
     public void testPol() {
         assertEquals(Map.of(Map.of("x", 2L), 1L, Map.of(), 1L), pol(vars("x", 2), 1, vars(), 1));
+        assertEquals(Map.of(Map.of("x", 2L), 1L, Map.of(), 4L), pol(vars("x", 2), 1, vars(), 1, vars(), 3));
         assertEquals(Map.of(Map.of("x", 2L), 3L), pol(vars("x", 2), 1, vars("x", 2), 2));
     }
 
