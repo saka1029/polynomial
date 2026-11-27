@@ -34,9 +34,9 @@ public class TestSimplePolynomial {
         return new LinkedHashMap<>();
     }
 
-    Map<String, Long> vars(String v, long p) {
+    Map<String, Long> vars(String v0, long p0) {
         Map<String, Long> map = vars();
-        map.put(v, p);
+        map.put(v0, p0);
         return map;
     }
 
