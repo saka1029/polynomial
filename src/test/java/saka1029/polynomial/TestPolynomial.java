@@ -15,23 +15,23 @@ public class TestPolynomial {
 
     @Test
     public void testEquals() {
-        assertNotEquals(Polynomial.of(Term.of(3, "a", 3)), "3a^3");
-        assertNotEquals(Polynomial.of(Term.of(3, "a", 3)), Polynomial.of(Term.of("a", 3).mult(2)));
+        assertNotEquals(Polynomial.of(Term.of(3).mult("a", 3)), "3a^3");
+        assertNotEquals(Polynomial.of(Term.of(3).mult("a", 3)), Polynomial.of(Term.of(1L).mult("a", 3).mult(2)));
     }
 
     @Test
     public void testHashCode() {
-        assertEquals(Polynomial.of(Term.of(3, "a", 3)).hashCode(), Polynomial.of(Term.of("a", 3).mult(3)).hashCode());
+        assertEquals(Polynomial.of(Term.of(3).mult("a", 3)).hashCode(), Polynomial.of(Term.of(1L).mult("a", 3).mult(3)).hashCode());
     }
 
     @Test
     public void testToString() {
-        assertEquals("+2x^3+y^4", Polynomial.of(Term.of(2, "x", 3), Term.of("y", 4)).toString());
+        assertEquals("+2x^3+y^4", Polynomial.of(Term.of(2).mult("x", 3), Term.of(1L).mult("y", 4)).toString());
     }
 
     @Test
     public void testToSuperString() {
-        assertEquals("+2x³+y⁴", Polynomial.of(Term.of(2, "x", 3), Term.of("y", 4)).toSuperString());
+        assertEquals("+2x³+y⁴", Polynomial.of(Term.of(2).mult("x", 3), Term.of(1L).mult("y", 4)).toSuperString());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class TestPolynomial {
 
     @Test
     public void testMult() {
-        Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
+        Polynomial x1 = Polynomial.of(Term.of(1L).mult("x", 1L), Term.ONE);
         assertEquals("+x^2+2x+1", x1.mult(x1).toString());
         assertEquals(p("x^3-1"), p("x-1").mult(p("x^2+x+1")));
         assertEquals(p("x^3+1"), p("x+1").mult(p("x^2-x+1")));
@@ -49,7 +49,7 @@ public class TestPolynomial {
 
     @Test
     public void testPow() {
-        Polynomial x1 = Polynomial.of(Term.of("x"), Term.ONE);
+        Polynomial x1 = Polynomial.of(Term.of(1L).mult("x", 1), Term.ONE);
         assertEquals("+1", x1.pow(0L).toString());
         assertEquals("+x+1", x1.pow(1L).toString());
         assertEquals("+x^2+2x+1", x1.pow(2L).toString());

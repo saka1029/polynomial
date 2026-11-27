@@ -34,40 +34,14 @@ public class Term {
         return new Term(vars(), coef);
     }
 
-    public static Term of(String v) {
-        Map<String, Long> vars = vars();
-        vars.put(v, 1L);
-        return new Term(vars, 1L);
-    }
-
-    public static Term of(String v, long p) {
-        checkPower(p);
-        Map<String, Long> vars = vars();
-        vars.put(v, p);
-        return new Term(vars, 1L);
-    }
-
-    public static Term of(long c, String v, long p) {
-        if (c == 0)
-            return of(c);
-        checkPower(p);
-        Map<String, Long> vars = vars();
-        vars.put(v, p);
-        return new Term(vars, c);
-    }
-
     public Term mult(long c) {
         Map<String, Long> nvars = vars(vars);
         return new Term(nvars, coef * c);
     }
 
-    public Term mult(String v) {
-        Map<String, Long> nvars = vars(vars);
-        nvars.merge(v, 1L, (a, b) -> a + b);
-        return new Term(nvars, coef);
-    }
-
     public Term mult(String v, long p) {
+        if (coef == 0L)
+            return ZERO;
         checkPower(p);
         Map<String, Long> nvars = vars(vars);
         nvars.merge(v, p, (a, b) -> a + b);
