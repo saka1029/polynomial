@@ -12,7 +12,13 @@ public class TestSimplePolynomial {
 
     static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long c) {
         Objects.requireNonNull(v, "v");
-        map.compute(v, (x, y) -> y == null ? c : y + c);
+        Long old = map.get(v);
+        if (old != null)
+            c += old;
+        if (c != 0L)
+            map.put(v, c);
+        else
+            map.remove(v);
     }
 
     public static Map<Map<String, Long>, Long> pol() {
@@ -41,6 +47,8 @@ public class TestSimplePolynomial {
     }
 
     public static String string(Map<Map<String, Long>, Long> pol) {
+        if (pol.isEmpty())
+            return "+0";
         StringBuilder sb = new StringBuilder();
         for (var e : pol.entrySet()) {
             Map<String, Long> vars = e.getKey();
@@ -98,6 +106,7 @@ public class TestSimplePolynomial {
         assertEquals(Map.of(Map.of("x", 2L), 1L, Map.of(), 1L), pol(vars("x", 2), 1, vars(), 1));
         assertEquals(Map.of(Map.of("x", 2L), 1L, Map.of(), 4L), pol(vars("x", 2), 1, vars(), 1, vars(), 3));
         assertEquals(Map.of(Map.of("x", 2L), 3L), pol(vars("x", 2), 1, vars("x", 2), 2));
+        assertEquals(Map.of(), pol(vars("x", 2), 1, vars("x", 2), -1));
     }
 
     @Test
@@ -105,6 +114,7 @@ public class TestSimplePolynomial {
         assertEquals("+x^2+4", string(pol(vars("x", 2), 1, vars(), 1, vars(), 3)));
         assertEquals("+3x^2", string(pol(vars("x", 2), 1, vars("x", 2), 2)));
         assertEquals("-4x^2y^3+2x+3", string(pol(vars("x", 2, "y", 3), -4, vars("x", 1), 2, vars(), 3)));
+        assertEquals("+0", string(pol(vars("x", 2), 1, vars("x", 2), -1)));
     }
 
     @Test
