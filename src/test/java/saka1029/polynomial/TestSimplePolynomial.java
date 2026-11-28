@@ -70,7 +70,7 @@ public class TestSimplePolynomial {
         return new Pair<>(v, p);
     }
 
-    static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long p) {
+    static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long c) {
         Objects.requireNonNull(v, "v");
         Long old = map.get(v);
         if (old != null)
@@ -112,6 +112,13 @@ public class TestSimplePolynomial {
         add(map, v1, c1);
         add(map, v2, c2);
         add(map, v3, c3);
+        return map;
+    }
+
+    public static Map<Map<String, Long>, Long> pol(Term... terms) {
+        Map<Map<String, Long>, Long> map = new LinkedHashMap<>();
+        for (Term t : terms)
+            add(map, t.x, t.y);
         return map;
     }
 
@@ -176,6 +183,13 @@ public class TestSimplePolynomial {
         add(map, v1, p1);
         add(map, v2, p2);
         add(map, v3, p3);
+        return map;
+    }
+
+    public static Map<String, Long> vars(Var... vars) {
+        Map<String, Long> map = vars();
+        for (Var v : vars)
+            add(map, v.x, v.y);
         return map;
     }
 
