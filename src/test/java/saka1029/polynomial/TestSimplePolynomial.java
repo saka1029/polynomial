@@ -46,6 +46,15 @@ public class TestSimplePolynomial {
         return map;
     }
 
+    public static Map<Map<String, Long>, Long> pol(Map<String, Long> v0, long c0, Map<String, Long> v1, long c1, Map<String, Long> v2, long c2, Map<String, Long> v3, long c3) {
+        Map<Map<String, Long>, Long> map = new LinkedHashMap<>();
+        add(map, v0, c0);
+        add(map, v1, c1);
+        add(map, v2, c2);
+        add(map, v3, c3);
+        return map;
+    }
+
     public static String string(Map<Map<String, Long>, Long> pol) {
         if (pol.isEmpty())
             return "+0";
@@ -98,6 +107,15 @@ public class TestSimplePolynomial {
         add(map, v0, p0);
         add(map, v1, p1);
         add(map, v2, p2);
+        return map;
+    }
+
+    public static Map<String, Long> vars(String v0, long p0, String v1, long p1, String v2, long p2, String v3, long p3) {
+        Map<String, Long> map = vars();
+        add(map, v0, p0);
+        add(map, v1, p1);
+        add(map, v2, p2);
+        add(map, v3, p3);
         return map;
     }
 
