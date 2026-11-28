@@ -10,11 +10,9 @@ import org.junit.Test;
 
 public class TestSimplePolynomial {
 
-    static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long p) {
+    static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long c) {
         Objects.requireNonNull(v, "v");
-        if (p < 1)
-            throw new IndexOutOfBoundsException("p");
-        map.compute(v, (x, y) -> y == null ? p : y + p);
+        map.compute(v, (x, y) -> y == null ? c : y + c);
     }
 
     public static Map<Map<String, Long>, Long> pol() {
@@ -47,19 +45,17 @@ public class TestSimplePolynomial {
         for (var e : pol.entrySet()) {
             Map<String, Long> vars = e.getKey();
             long coef = e.getValue();
-            if (coef == 0L) {
+            if (coef == 0L)
                 sb.append("+0");
-                break;
-            }
-            if (vars.size() == 0) {
+            else if (vars.size() == 0)
                 sb.append("%+d".formatted(coef));
-                break;
-            }
-            sb.append(coef == 1L ? "+" : "%+d".formatted(coef));
-            for (var v : vars.entrySet()) {
-                sb.append(v.getKey());
-                if (v.getValue() > 1L)
-                    sb.append("^").append(v.getValue());
+            else {
+                sb.append(coef == 1L ? "+" : "%+d".formatted(coef));
+                for (var v : vars.entrySet()) {
+                    sb.append(v.getKey());
+                    if (v.getValue() > 1L)
+                        sb.append("^").append(v.getValue());
+                }
             }
         }
         return sb.toString();
@@ -108,7 +104,7 @@ public class TestSimplePolynomial {
     public void testString() {
         assertEquals("+x^2+4", string(pol(vars("x", 2), 1, vars(), 1, vars(), 3)));
         assertEquals("+3x^2", string(pol(vars("x", 2), 1, vars("x", 2), 2)));
-        assertEquals("+4x^2y^3+2x+3", string(pol(vars("x", 2, "y", 3), 4, vars("x", 1), 2, vars(), 3)));
+        assertEquals("-4x^2y^3+2x+3", string(pol(vars("x", 2, "y", 3), -4, vars("x", 1), 2, vars(), 3)));
     }
 
     @Test
