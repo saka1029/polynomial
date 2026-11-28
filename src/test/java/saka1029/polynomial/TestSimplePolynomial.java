@@ -10,6 +10,66 @@ import org.junit.Test;
 
 public class TestSimplePolynomial {
 
+    static class Pair<X, Y> {
+        public final X x;
+        public final Y y;
+
+        Pair(X a, Y b) {
+            this.x = a;
+            this.y = b;
+        }
+    }
+
+    static class Term extends Pair<Map<String, Long>, Long> {
+        Term(Map<String, Long> t, long c) {
+            super(t, c);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Term p
+                && p.x.equals(x)
+                && p.y.equals(y);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+
+        @Override
+        public String toString() {
+            return "Term(%s, %s)".formatted(x, y);
+        }
+    }
+
+    static class Var extends Pair<String, Long> {
+        Var(String v, long p) {
+            super(v, p);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Var p
+                && p.x.equals(x)
+                && p.y.equals(y);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(x, y);
+        }
+
+        @Override
+        public String toString() {
+            return "Var(%s, %s)".formatted(x, y);
+        }
+    }
+
+    static Pair<String, Long> var(String v, long p) {
+        return new Pair<>(v, p);
+    }
+
     static void add(Map<Map<String, Long>, Long> map, Map<String, Long> v, long p) {
         Objects.requireNonNull(v, "v");
         if (p < 1)
